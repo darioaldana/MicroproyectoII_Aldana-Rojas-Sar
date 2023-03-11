@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // import { Link, useNavigate } from "react-router-dom";
 
@@ -8,44 +8,45 @@ import styles from "./LoginPage.module.css";
 import { useState } from "react";
 // import {loginWithEmailAndPassword, signInWithGoogle,} from "../../firebase/auth-service";
 import logo from '../../assets/logo.png'
+import { fetchMovies } from "../../api/api"
 
 
 export function LoginPage() {
-    // const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-      email: "",
-      password: "",
+  // const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSignWithGoogle = async () => {
+    await signInWithGoogle();
+  };
+
+  const handleOnChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
     });
+  };
 
-    const handleSignWithGoogle = async () => {
-      await signInWithGoogle();
-    };
+  const onSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const { email, password } = formData;
+      await loginWithEmailAndPassword(email, password);
+      console.log("Succesfull!");
+      alert("Successfull Login!!");
+      navigate("/profile");
+    } catch (error) {
+      console.log(error);
+      console.log("Credentials not found!");
+      alert("Credentials not found, Sign UP!!");
+    }
+  };
 
-    const handleOnChange = (event) => {
-      const { name, value } = event.target;
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    };
-
-    const onSubmit = async (event) => {
-      try{
-        event.preventDefault();
-        const { email, password } = formData;
-        await loginWithEmailAndPassword(email, password);
-        console.log("Succesfull!");
-        alert("Successfull Login!!");
-        navigate("/profile");
-      }catch(error){
-        console.log(error);
-        console.log("Credentials not found!");
-        alert("Credentials not found, Sign UP!!");
-      }
-    };
-
-    return (
-      <div className={styles.wholePage}>
+  return (
+    <div className={styles.wholePage}>
       <div className={styles.container}>
         <form className={styles.form} onSubmit={onSubmit}>
           {/* <img src={logo} className={styles.logo}/>  */}
@@ -114,7 +115,7 @@ export function LoginPage() {
           </Link> */}
         </form>
       </div>
-      </div>
-    );
+    </div>
+  );
 }
 
