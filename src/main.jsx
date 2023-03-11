@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { HomePage } from "./pages/HomePage/HomePage";
 import { DetailPage } from "./pages/DetailPage/DetailPage"
-// import { LoginPage } from "./pages/LoginPage/LoginPage"
+
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <DetailPage />
+    <HomePage />
+    {/* <DetailPage /> */}
   </React.StrictMode>,
 )
