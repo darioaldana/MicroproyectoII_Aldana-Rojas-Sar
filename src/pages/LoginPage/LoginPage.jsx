@@ -2,8 +2,6 @@ import React from 'react'
 
 // import { Link, useNavigate } from "react-router-dom";
 
-import styles from "./LoginPage.module.css";
-
 // import { REGISTER_URL } from "../../constants/urls";
 import { useState } from "react";
 // import {loginWithEmailAndPassword, signInWithGoogle,} from "../../firebase/auth-service";
@@ -45,38 +43,38 @@ export function LoginPage() {
     };
 
     return (
-      <div class="flex justify-center items-center w-full h-full">
-      <div class = "w-6/12 flex-wrap">
-        <form class ="bg-yellow-200 w-full p-12 grid mt-16 rounded-3xl grid-cols-1 gap-y-10" onSubmit={onSubmit}>
+      <div class="flex justify-center items-center box-border bg-[#7e1616] w-screen h-screen p-0 m-0">
+
+        <form class ="bg-yellow-200 w-1/2 p-12 grid mt-16 rounded-3xl grid-cols-1 gap-y-5" onSubmit={onSubmit}>
           {/* <img src={logo} className={styles.logo}/>  */}
           <h1 class = "text-4xl text-center font-semibold text-black bg-yellow-200 tracking-tighter">Welcome!</h1>
           <p class = "font-normal text-base leading-6 text-center text-black mb-2 bg-yellow-200">
-            Login we're glad to help you!
+            Login to a new way of enjoying cinema
           </p>
 
           {/* EMAIL FIELD */}
-          <div className={styles.inputContainer}>
+          <div>
             <h3 class = "block text-sm font-medium leading-5 mb-0 text-gray-800 bg-yellow-200" htmlFor="email">
               Email
             </h3>
             <input
-              class = "block w-full rounded-none text-base leading-6 font-normal bg-gray-400"
+              class = "block w-full rounded-none text-base leading-6 font-normal bg-gray-100 text-black placeholder:text-gray-400 pl-[14px] h-9"
               type="email"
               name="email"
               id="email"
-              placeholder="Ejmp. simon@email.com"
+              placeholder= "fulanito@mail.com" 
               onChange={handleOnChange}
               required
             />
           </div>
 
           {/* PASSWORD FIELD */}
-          <div className={styles.inputContainer}>
+          <div>
             <h3 class = "block text-sm font-medium leading-5 mb-0 text-gray-800 bg-yellow-200"  htmlFor="password">
               Password
             </h3>
             <input
-              class = "block w-full rounded-none text-base leading-6 font-normal bg-gray-400"
+              class = "block w-full rounded-none text-base leading-6 font-normal text-black bg-gray-100 placeholder:text-gray-400 pl-[14px] h-9"
               type="password"
               name="password"
               id="password"
@@ -97,7 +95,7 @@ export function LoginPage() {
 
           <button
             type="button"
-            class = "block h-10 bg-gray-400 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl"
+            class = "block h-10 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl bg-red-400"
             onClick={handleSignWithGoogle}
           >
             Continue with Google
@@ -105,7 +103,7 @@ export function LoginPage() {
 
           <button
             type="button"
-            class = "block h-10 bg-gray-400 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl"
+            class = "block h-10 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl bg-blue-400"
             onClick={handleSignWithGoogle}
           >
             Continue with Twitter
@@ -116,7 +114,6 @@ export function LoginPage() {
             <span className={styles.redirectLink}>SIGN IN</span>
           </Link> */}
         </form>
-      </div>
       </div>
     );
 }
