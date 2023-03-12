@@ -1,5 +1,5 @@
-import { NavBar } from "./Components/NavBar"
-import { MoviesSection } from "./Components/MoviesSection";
+import { NavBar } from "./components/NavBar"
+import { MoviesSection } from "./components/MoviesSection";
 
 export function HomePage() {
     return (

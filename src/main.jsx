@@ -4,13 +4,15 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { DetailPage } from "./pages/DetailPage/DetailPage";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage"
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import "./index.css";
+import { MoviesContextProvider } from "./pages/HomePage/context/MoviesContextProvider";
 import {
   DeatilPageUrl,
   HomePageUrl,
   LoginPageUrl,
   RegisterPageUrl,
 } from "./constants/url";
+import "./index.css";
+
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -22,7 +24,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="*" element={<h1>Not Found!</h1>} />
         <Route element={<ProtectedRoutes />}>
           <Route path={DeatilPageUrl} element={<DetailPage />} />
-          <Route path={HomePageUrl} element={<HomePage />} />
+          <Route path={HomePageUrl} element={<MoviesContextProvider>
+            <HomePage />
+          </MoviesContextProvider>} />
         </Route>
       </Routes>
     </BrowserRouter>
