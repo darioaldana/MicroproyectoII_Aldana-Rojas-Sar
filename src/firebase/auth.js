@@ -56,7 +56,7 @@ export const registerWithEmailAndPassword = async ({ userData, onSuccess }) => {
     await setDoc(doc(db, "users", user.uid), {
       uid: user.uid,
       name: `${firstName} ${secondName}`,
-      email,
+      email: email,
     });
 
     if (onSuccess) {

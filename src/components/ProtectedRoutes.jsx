@@ -5,6 +5,7 @@ import { UserContext } from "../context/UserContextProvider";
 
 export const ProtectedRoutes = () => {
   const { user, isLoadingUser } = useContext(UserContext);
+  console.log(user);
   const isAuth = user != null && !isLoadingUser;
   return isAuth ? <Outlet></Outlet> : <Navigate to="/" />;
 };

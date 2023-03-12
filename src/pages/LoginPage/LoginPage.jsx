@@ -31,7 +31,6 @@ export function LoginPage() {
       ...oldData,
       [event.target.name]: event.target.value,
     }));
-    console.log(formData)
   };
 
   return (

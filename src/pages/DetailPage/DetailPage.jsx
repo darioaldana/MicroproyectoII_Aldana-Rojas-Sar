@@ -1,8 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { fetchMovie, base_url } from "./../../api/api";
+import { base_url } from "./../../api/api";
 import { Loading } from "../../components/Loading";
 import { MovieDetailContext } from "./context/DetailContext";
+import { Link } from "react-router-dom";
+import { HomePageUrl } from "../../constants/url";
+import { ArrowLeftIcon } from '@heroicons/react/20/solid'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,28 +23,15 @@ export function DetailPage() {
       <div className="pt-0">
         {/* Back Button */}
         <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:gap-x-8 lg:px-8">
-          <button
-            type="button"
-            className=" flex items-center py-2.5 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  lg:w-25"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              className="w-5 h-5 -ml-1"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
-              />
-            </svg>
 
-            <div className="hidden sm:block ml-2">Go Back</div>
-          </button>
+          <Link
+            to={HomePageUrl}
+            className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <ArrowLeftIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+            Go back
+          </Link>
+
         </div>
 
         {/* Product info */}
@@ -157,7 +147,7 @@ export function DetailPage() {
 
         {/* Production Companies */}
         <div className="mx-auto flex-col max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-10 pb-10">
-          <div className="mx-auto grid max-w-2xl grid-cols-2 gap-y-8 gap-x-8 pt-4 md:grid-cols-3 sm:pt-4 lg:mx-0 lg:max-w-none">
+          <div className="mx-auto justify-center items-center grid max-w-2xl grid-cols-2 gap-y-8 gap-x-8 pt-4 md:grid-cols-3 sm:pt-4 lg:mx-0 lg:max-w-none">
             {movie.production_companies.map((company) => (
               <figcaption key={company.logo_path}>
                 <img

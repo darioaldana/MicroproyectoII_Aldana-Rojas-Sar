@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchMovie } from "../../../api/api";
 
 export const MovieDetailContext = React.createContext();
 
 export function MovieDetailContextProvider({ children }) {
-  const movieId = 1077280;
-  // const movieId = useParams();
+  // const movieId = 1077280;
+  const { movieId } = useParams();
 
   const [movie, setMovie] = useState();
 
@@ -21,8 +21,8 @@ export function MovieDetailContextProvider({ children }) {
   useEffect(() => {
     getMovie(movieId);
   }, [
+    // movieId
     movieId
-    //params.id
   ]);
 
   return (

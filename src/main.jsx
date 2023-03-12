@@ -15,6 +15,7 @@ import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
 import { UserContextProvider } from "./context/UserContextProvider";
 import "./index.css";
+import { MovieDetailContextProvider } from "./pages/DetailPage/context/DetailContext";
 
 
 
@@ -27,7 +28,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="*" element={<h1>Not Found!</h1>} />
           <Route path={RegisterPageUrl} element={<RegisterPage />} />
           <Route element={<ProtectedRoutes />}>
-            <Route path={DeatilPageUrl} element={<DetailPage />} />
+            <Route path={`${DeatilPageUrl}/:movieId`} element={
+              <MovieDetailContextProvider>
+                <DetailPage />
+              </MovieDetailContextProvider>
+            } />
             <Route path={HomePageUrl} element={<MoviesContextProvider>
               <HomePage />
             </MoviesContextProvider>} />

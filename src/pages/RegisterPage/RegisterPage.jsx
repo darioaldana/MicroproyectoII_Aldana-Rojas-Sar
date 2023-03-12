@@ -18,8 +18,8 @@ export function RegisterPage() {
         event.preventDefault();
 
         await registerWithEmailAndPassword({
-            onSuccess: onSuccess,
             userData: formData,
+            onSuccess: onSuccess,
         });
     };
 
@@ -32,7 +32,6 @@ export function RegisterPage() {
             ...oldData,
             [event.target.name]: event.target.value,
         }));
-        console.log(formData)
     };
 
 
