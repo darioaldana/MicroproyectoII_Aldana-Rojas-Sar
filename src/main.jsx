@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { DetailPage } from "./pages/DetailPage/DetailPage";
+import { RegisterPage } from "./pages/RegisterPage/RegisterPage"
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./index.css";
 import {

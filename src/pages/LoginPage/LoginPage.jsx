@@ -135,15 +135,8 @@ export function LoginPage() {
               <h3 className="block font-semibold text-gray-900">Facebook</h3>
             </div>
           </button>
-
-
         </div>
-
-      
-      </form>      
-        
-
-        
+      </form>       
       </div>
     );
 }
