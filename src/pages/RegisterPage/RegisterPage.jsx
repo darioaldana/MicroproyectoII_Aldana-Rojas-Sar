@@ -2,13 +2,54 @@ import { useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import GoogleLogo from "../../assets/google.png"
 import FacebookLogo from "../../assets/facebook.png"
+import { Link, useNavigate } from "react-router-dom";
+import {
+    registerWithEmailAndPassword,
+    signInWithGoogle,
+  } from "../../firebase/auth"
 import { Switch } from '@headlessui/react'
+import { HomePageUrl } from "../../constants/url";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export function RegisterPage() {
+
+    const navigate = useNavigate();
+    const [formData, setData] = useState({});
+
+    const onSuccess = () => {
+        navigate(HomePageUrl);
+    };
+
+    const onFail = (_error) => {
+        console.log("REGISTER FAILED, Try Again");
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        await registerWithEmailAndPassword({
+            onSuccess,
+            userData: formData,
+            onFail,
+        });
+    };
+
+    const handleGoogleClick = async () => {
+        await signInWithGoogle({
+          onSuccess: () => navigate(HomePageUrl),
+        });
+    };
+
+    const onChange = (event) => {
+        setData((oldData) => ({
+            ...oldData,
+            [event.target.name]: event.target.value,
+        }));
+    };
+
 
     return (
         <div className="isolate bg-white py-24 px-6 sm:py-32 lg:px-8">
@@ -32,7 +73,9 @@ export function RegisterPage() {
                                 name="first-name"
                                 id="first-name"
                                 autoComplete="given-name"
+                                placeholder="Eg. Pedro"
                                 className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                onChange={onChange}
                             />
                         </div>
                     </div>
@@ -46,7 +89,9 @@ export function RegisterPage() {
                                 name="last-name"
                                 id="last-name"
                                 autoComplete="family-name"
+                                placeholder="Eg. Navaja"
                                 className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                onChange={onChange}
                             />
                         </div>
                     </div>
@@ -61,6 +106,8 @@ export function RegisterPage() {
                                 name="email"
                                 id="email"
                                 autoComplete="email"
+                                placeholder=' Eg. pedrito@email.com"'
+                                onChange={onChange}
                                 className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
@@ -71,11 +118,12 @@ export function RegisterPage() {
                         </label>
                         <div className="mt-2.5">
                             <input
-                                type="text"
-                                name="company"
-                                id="company"
+                                type="password"
+                                name="password"
+                                id="password"
                                 autoComplete="organization"
                                 className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                onChange={onChange}
                             />
                         </div>
                     </div>
@@ -85,6 +133,7 @@ export function RegisterPage() {
                     <button
                         type="submit"
                         className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        onClick={handleSubmit}
                     >
                         Register Account
                     </button>
@@ -93,16 +142,19 @@ export function RegisterPage() {
                 <div className="flex items-center justify-center">
                     <button 
                         type = "button"
-                        className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
+                        className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105"
+                        onClick={handleGoogleClick}>
                         <img src={GoogleLogo} className='h-12' />
                         <div className="items-center justify-center">
                         <h3 className="block font-semibold text-gray-900">Google</h3>
+                        
                       </div>
                     </button>
 
                     <button 
                         type = "button"
-                        className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
+                        className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105"
+                        onClick={handleGoogleClick}>
                     <img src={FacebookLogo} className='h-12 p-1' />
                     <div className="items-center justify-center">
               

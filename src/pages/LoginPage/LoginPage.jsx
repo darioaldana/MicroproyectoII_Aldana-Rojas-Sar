@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 
-// import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-// import { REGISTER_URL } from "../../constants/urls";
+import { RegisterPageUrl } from "../../constants/url";
 import { useState } from "react";
 import GoogleLogo from "../../assets/google.png"
 import FacebookLogo from "../../assets/facebook.png"
@@ -14,7 +14,7 @@ import { fetchMovies } from "../../api/api"
 
 
 export function LoginPage() {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
       email: "",
       password: "",
@@ -135,6 +135,13 @@ export function LoginPage() {
               <h3 className="block font-semibold text-gray-900">Facebook</h3>
             </div>
           </button>
+        </div>
+
+        <div className='flex flex-col items-center justify-center'>
+          <Link to={ RegisterPageUrl } className="block font-semibold text-sm text-gray-900 hover:scale-105 center" >
+          ¿No tienes una cuenta?{" "}
+          <span>Regístrate</span>
+          </Link>
         </div>
       </form>       
       </div>

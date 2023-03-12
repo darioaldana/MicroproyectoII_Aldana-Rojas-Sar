@@ -5,14 +5,20 @@ import { DetailPage } from "./pages/DetailPage/DetailPage";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage"
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./index.css";
+
 import {
   DeatilPageUrl,
   HomePageUrl,
   LoginPageUrl,
   RegisterPageUrl,
 } from "./constants/url";
+
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { ProtectedRoutes } from "./ProtectedRoutes";
+
+import { ProtectedRoutes } from "./components/ProtectedRoutes";
+
+
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
