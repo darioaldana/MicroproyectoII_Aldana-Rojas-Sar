@@ -4,7 +4,7 @@ import React from 'react'
 
 // import { REGISTER_URL } from "../../constants/urls";
 import { useState } from "react";
-// import {loginWithEmailAndPassword, signInWithGoogle,} from "../../firebase/auth-service";
+import {loginWithEmailAndPassword, signInWithGoogle,} from "../../firebase/auth";
 import logo from '../../assets/logo.png'
 
 
@@ -15,8 +15,19 @@ export function LoginPage() {
       password: "",
     });
 
+    const onSuccess = () => {
+      alert("Success.")
+    };
+  
+    const onFail = (_error) => {
+      alert("Failure.")
+    };
+
+    
     const handleSignWithGoogle = async () => {
-      await signInWithGoogle();
+      await signInWithGoogle(
+        {onSuccess: () => alert(Exitazo)}
+      );
     };
 
     const handleOnChange = (event) => {
@@ -28,18 +39,8 @@ export function LoginPage() {
     };
 
     const onSubmit = async (event) => {
-      try{
-        event.preventDefault();
-        const { email, password } = formData;
-        await loginWithEmailAndPassword(email, password);
-        console.log("Succesfull!");
-        alert("Successfull Login!!");
-        navigate("/profile");
-      }catch(error){
-        console.log(error);
-        console.log("Credentials not found!");
-        alert("Credentials not found, Sign UP!!");
-      }
+      event.preventDefault();
+      await loginWithEmailAndPassword({ userData: formData, onSuccess, onFail });
     };
 
     return (
@@ -95,7 +96,7 @@ export function LoginPage() {
 
           <button
             type="button"
-            class = "block h-10 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl bg-red-400"
+            class = "block h-10 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl bg-red-400 hover:scale-105"
             onClick={handleSignWithGoogle}
           >
             Continue with Google
@@ -103,7 +104,7 @@ export function LoginPage() {
 
           <button
             type="button"
-            class = "block h-10 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl bg-blue-400"
+            class = "block h-10 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl bg-blue-400 hover:scale-105"
             onClick={handleSignWithGoogle}
           >
             Continue with Twitter
