@@ -34,36 +34,37 @@ export function DetailPage() {
     console.log("b");
     return (
       <>
-        <div className="bg-white flex flex-row-reverse pt-6 pb-0 mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <button
-            type="button"
-            className="flex  items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  lg:w-25"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              className="w-5 h-5 -ml-1"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
-              />
-            </svg>
-
-            <div className="hidden sm:block ml-2">Go Back</div>
-          </button>
-        </div>
-
         <div className="bg-white ">
           <div className="pt-0">
+            {/* Back Button */}
+            <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:gap-x-8 lg:px-8">
+              <button
+                type="button"
+                className=" flex items-center py-2.5 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  lg:w-25"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  className="w-5 h-5 -ml-1"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+                  />
+                </svg>
+
+                <div className="hidden sm:block ml-2">Go Back</div>
+              </button>
+            </div>
+
             {/* Product info */}
-            <div className="mx-auto max-w-2xl px-4 pt-1 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 ">
+            <div className="mx-auto max-w-2xl px-4 pt-8 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-12 ">
               <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 {/* Title */}
                 <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
@@ -181,15 +182,15 @@ export function DetailPage() {
                 {movie.production_companies.map((company) => (
                   <figcaption>
                     <img
-                      className="mx-auto h-10 w-10 rounded-full"
+                      className="mx-auto resize-y  scale-50 rounded-2"
                       src={`${base_url}${company.logo_path}`}
                       alt=""
                     />
-                    <div className="mt-4 flex items-center justify-center space-x-3 text-base">
+                    {/* <div className="mt-4 flex items-center justify-center space-x-3 text-base">
                       <div className="font-semibold text-gray-900 text-center">
                         {company.name}
                       </div>
-                    </div>
+                    </div> */}
                   </figcaption>
                 ))}
               </div>
