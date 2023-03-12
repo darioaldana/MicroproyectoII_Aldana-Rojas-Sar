@@ -5,7 +5,7 @@ import { Loading } from "../../components/Loading";
 import { MovieDetailContext } from "./context/DetailContext";
 import { Link } from "react-router-dom";
 import { HomePageUrl } from "../../constants/url";
-import { ArrowLeftIcon } from '@heroicons/react/20/solid'
+import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -23,15 +23,16 @@ export function DetailPage() {
       <div className="pt-0">
         {/* Back Button */}
         <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:gap-x-8 lg:px-8">
-
           <Link
             to={HomePageUrl}
             className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            <ArrowLeftIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+            <ArrowLeftIcon
+              className="-ml-0.5 mr-1.5 h-5 w-5"
+              aria-hidden="true"
+            />
             Go back
           </Link>
-
         </div>
 
         {/* Product info */}
@@ -44,9 +45,7 @@ export function DetailPage() {
 
             {/* Release Date */}
             <div className="flex">
-              <p className="font-medium text-gray-900 mr-2">
-                Release date:{" "}
-              </p>
+              <p className="font-medium text-gray-900 mr-2">Release date: </p>
               <p className="tracking-tight text-gray-900">
                 {movie.release_date}
               </p>
@@ -88,7 +87,7 @@ export function DetailPage() {
               <img
                 src={`${base_url}${movie.poster_path}`}
                 alt={`${base_url}${movie.poster_path}`}
-                className="h-full w-full object-cover object-center"
+                className="object-contain"
               />
             </div>
 
@@ -125,15 +124,10 @@ export function DetailPage() {
 
             {/* Genre List */}
             <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">
-                Genre List
-              </h3>
+              <h3 className="text-sm font-medium text-gray-900">Genre List</h3>
 
               <div className="mt-4">
-                <ul
-                  role="list"
-                  className="list-disc space-y-2 pl-4 text-sm"
-                >
+                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                   {movie.genres.map((genre) => (
                     <li key={genre.id} className="text-gray-400">
                       <span className="text-gray-600">{genre.name}</span>
@@ -151,7 +145,6 @@ export function DetailPage() {
             {movie.production_companies.map((company) => (
               <figcaption key={company.logo_path}>
                 <img
-
                   className="mx-auto resize-y  scale-50 rounded-2"
                   src={`${base_url}${company.logo_path}`}
                   alt=""
@@ -163,5 +156,4 @@ export function DetailPage() {
       </div>
     </div>
   );
-
 }
