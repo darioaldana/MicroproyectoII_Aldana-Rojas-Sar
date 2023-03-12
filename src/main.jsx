@@ -11,27 +11,29 @@ import {
   LoginPageUrl,
   RegisterPageUrl,
 } from "./constants/url";
-
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
+import { UserContextProvider } from "./context/UserContextProvider";
+import "./index.css";
 
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path={LoginPageUrl} element={<LoginPage />} />
-        <Route path={RegisterPageUrl} element={<RegisterPage />} />
-        <Route path="*" element={<h1>Not Found!</h1>} />
-        <Route element={<ProtectedRoutes />}>
-          <Route path={DeatilPageUrl} element={<DetailPage />} />
-          <Route path={HomePageUrl} element={<MoviesContextProvider>
-            <HomePage />
-          </MoviesContextProvider>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <UserContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path={LoginPageUrl} element={<LoginPage />} />
+          <Route path="*" element={<h1>Not Found!</h1>} />
+          <Route path={RegisterPageUrl} element={<RegisterPage />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path={DeatilPageUrl} element={<DetailPage />} />
+            <Route path={HomePageUrl} element={<MoviesContextProvider>
+              <HomePage />
+            </MoviesContextProvider>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </UserContextProvider>
   </React.StrictMode>
 );

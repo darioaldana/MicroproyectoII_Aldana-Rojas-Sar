@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { base_url } from "../../../api/api";
 import { MoviesContext } from "../context/MoviesContextProvider";
+import { Loading } from "../../../components/Loading";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -37,7 +38,7 @@ export function MoviesSection() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   return (

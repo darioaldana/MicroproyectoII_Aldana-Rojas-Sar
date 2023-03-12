@@ -1,81 +1,56 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { RegisterPageUrl } from "../../constants/url";
+import { HomePageUrl, RegisterPageUrl } from "../../constants/url";
 import { useState } from "react";
 import GoogleLogo from "../../assets/google.png"
 import FacebookLogo from "../../assets/facebook.png"
 
-import {loginWithEmailAndPassword, signInWithGoogle,} from "../../firebase/auth";
-import logo from '../../assets/logo.png'
-
-import { fetchMovies } from "../../api/api"
+import { logInWithEmailAndPassword, signInWithGoogle, } from "../../firebase/auth";
 
 
 export function LoginPage() {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-      email: "",
-      password: "",
-    });
+  const navigate = useNavigate();
+  const [formData, setData] = useState({});
 
-    const onSuccess = () => {
-      alert("Success.")
-    };
-  
-    const onFail = (_error) => {
-      alert("Failure.")
-    };
+  const onSuccess = () => navigate(HomePageUrl);
 
-    
-    const handleSignWithGoogle = async () => {
-      await signInWithGoogle(
-        {onSuccess: () => alert(Exitazo)}
-      );
-    };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const handleOnChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    await logInWithEmailAndPassword({ userData: formData, onSuccess: onSuccess });
   };
 
-  const onSubmit = async (event) => {
-    try {
-      event.preventDefault();
-      const { email, password } = formData;
-      await loginWithEmailAndPassword(email, password);
-      console.log("Succesfull!");
-      alert("Successfull Login!!");
-      navigate("/profile");
-    } catch (error) {
-      console.log(error);
-      console.log("Credentials not found!");
-      alert("Credentials not found, Sign UP!!");
-    }
+  const handleGoogleClick = async () => {
+    await signInWithGoogle({ onSuccess: onSuccess });
   };
 
+  const onChange = (event) => {
+    setData((oldData) => ({
+      ...oldData,
+      [event.target.name]: event.target.value,
+    }));
+    console.log(formData)
+  };
 
-    return (
-      <div className="isolate bg-white py-24 px-6 sm:py-32 lg:px-8">
-        
-        <div class="mx-auto max-w-2xl text-center">
-          <h1 class = "text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome!</h1>
-          <p class = "mt-2 text-lg leading-8 text-gray-600">
-            Login to a new way of enjoying cinema
-          </p>
+  return (
+    <div className="isolate bg-white py-24 px-6 sm:py-32 lg:px-8">
+
+      <div className="mx-auto max-w-2xl text-center">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome!</h1>
+        <p className="mt-2 text-lg leading-8 text-gray-600">
+          Login to a new way of enjoying cinema
+        </p>
       </div>
 
-      <form class ="mx-auto mt-16 max-w-xl sm:mt-20" onSubmit={onSubmit}>
-        
+      <form className="mx-auto mt-16 max-w-xl sm:mt-20" onSubmit={handleSubmit}>
+
         <div className="grid grid-cols-1 gap-y-6 gap-x-8 sm:grid-cols-2">
 
           <div className="sm:col-span-2">
             <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
-            Email
+              Email
             </label>
             <div className="mt-2.5">
               <input
@@ -83,7 +58,7 @@ export function LoginPage() {
                 name="email"
                 id="email"
                 placeholder='ej: juancito@trucupey.com'
-                onChange={handleOnChange}
+                onChange={onChange}
                 className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 required
               />
@@ -96,12 +71,12 @@ export function LoginPage() {
             </label>
             <div className="mt-2.5">
               <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  onChange={handleOnChange}
-                  className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  required
+                type="password"
+                name="password"
+                id="password"
+                onChange={onChange}
+                className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                required
               />
             </div>
           </div>
@@ -118,9 +93,9 @@ export function LoginPage() {
 
 
         <div className="flex items-center justify-center">
-          <button 
-            type = "button"
-            onClick = {handleSignWithGoogle}
+          <button
+            type="button"
+            onClick={handleGoogleClick}
             className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
             <img src={GoogleLogo} className='h-12' />
             <div className="items-center justify-center">
@@ -131,19 +106,19 @@ export function LoginPage() {
           <button className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
             <img src={FacebookLogo} className='h-12 p-1' />
             <div className="items-center justify-center">
-              
+
               <h3 className="block font-semibold text-gray-900">Facebook</h3>
             </div>
           </button>
         </div>
 
         <div className='flex flex-col items-center justify-center'>
-          <Link to={ RegisterPageUrl } className="block font-semibold text-sm text-gray-900 hover:scale-105 center" >
-          ¿No tienes una cuenta?{" "}
-          <span>Regístrate</span>
+          <Link to={RegisterPageUrl} className="block font-semibold text-sm text-gray-900 hover:scale-105 center" >
+            ¿No tienes una cuenta?{" "}
+            <span>Regístrate</span>
           </Link>
         </div>
-      </form>       
-      </div>
-    );
+      </form>
+    </div>
+  );
 }

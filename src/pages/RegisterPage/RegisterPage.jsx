@@ -1,46 +1,30 @@
 import { useState } from 'react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import GoogleLogo from "../../assets/google.png"
 import FacebookLogo from "../../assets/facebook.png"
 import { Link, useNavigate } from "react-router-dom";
 import {
     registerWithEmailAndPassword,
     signInWithGoogle,
-  } from "../../firebase/auth"
-import { Switch } from '@headlessui/react'
-import { HomePageUrl } from "../../constants/url";
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+} from "../../firebase/auth"
+import { HomePageUrl, LoginPageUrl } from "../../constants/url";
 
 export function RegisterPage() {
-
     const navigate = useNavigate();
     const [formData, setData] = useState({});
 
-    const onSuccess = () => {
-        navigate(HomePageUrl);
-    };
-
-    const onFail = (_error) => {
-        console.log("REGISTER FAILED, Try Again");
-    };
+    const onSuccess = () => navigate(HomePageUrl);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         await registerWithEmailAndPassword({
-            onSuccess,
+            onSuccess: onSuccess,
             userData: formData,
-            onFail,
         });
     };
 
     const handleGoogleClick = async () => {
-        await signInWithGoogle({
-          onSuccess: () => navigate(HomePageUrl),
-        });
+        await signInWithGoogle({ onSuccess: onSuccess });
     };
 
     const onChange = (event) => {
@@ -48,6 +32,7 @@ export function RegisterPage() {
             ...oldData,
             [event.target.name]: event.target.value,
         }));
+        console.log(formData)
     };
 
 
@@ -70,8 +55,8 @@ export function RegisterPage() {
                         <div className="mt-2.5">
                             <input
                                 type="text"
-                                name="first-name"
-                                id="first-name"
+                                name="firstName"
+                                id="firstName"
                                 autoComplete="given-name"
                                 placeholder="Eg. Pedro"
                                 className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -86,8 +71,8 @@ export function RegisterPage() {
                         <div className="mt-2.5">
                             <input
                                 type="text"
-                                name="last-name"
-                                id="last-name"
+                                name="secondName"
+                                id="secondName"
                                 autoComplete="family-name"
                                 placeholder="Eg. Navaja"
                                 className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -128,7 +113,7 @@ export function RegisterPage() {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="mt-10">
                     <button
                         type="submit"
@@ -140,27 +125,34 @@ export function RegisterPage() {
                 </div>
 
                 <div className="flex items-center justify-center">
-                    <button 
-                        type = "button"
+                    <button
+                        type="button"
                         className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105"
                         onClick={handleGoogleClick}>
                         <img src={GoogleLogo} className='h-12' />
                         <div className="items-center justify-center">
-                        <h3 className="block font-semibold text-gray-900">Google</h3>
-                        
-                      </div>
+                            <h3 className="block font-semibold text-gray-900">Google</h3>
+
+                        </div>
                     </button>
 
-                    <button 
-                        type = "button"
+                    <button
+                        type="button"
                         className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105"
                         onClick={handleGoogleClick}>
-                    <img src={FacebookLogo} className='h-12 p-1' />
-                    <div className="items-center justify-center">
-              
-                        <h3 className="block font-semibold text-gray-900">Facebook</h3>
-                    </div>
+                        <img src={FacebookLogo} className='h-12 p-1' />
+                        <div className="items-center justify-center">
+
+                            <h3 className="block font-semibold text-gray-900">Facebook</h3>
+                        </div>
                     </button>
+                </div>
+
+                <div className='mt-3 flex flex-col items-center justify-center'>
+                    <Link to={LoginPageUrl} className="block font-semibold text-sm text-gray-900 hover:scale-105 center" >
+                        Do you have an account?{" "}
+                        <span>Login</span>
+                    </Link>
                 </div>
             </form>
         </div>

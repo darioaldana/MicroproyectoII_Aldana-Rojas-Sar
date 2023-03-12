@@ -4,8 +4,6 @@ import { fetchMovie, base_url } from "./../../api/api";
 import { Loading } from "../../components/Loading";
 import { MovieDetailContext } from "./context/DetailContext";
 
-const reviews = { href: "#", average: 4, totalCount: 117 };
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }

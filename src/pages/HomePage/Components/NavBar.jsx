@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import { UilSignout } from '@iconscout/react-unicons'
 import { MoviesContext } from "../context/MoviesContextProvider";
+import { logout } from "./../../../firebase/auth"
 
 export function NavBar() {
   const {
@@ -44,9 +45,9 @@ export function NavBar() {
 
 
         <div className="flex flex-1 justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <button onClick={logout} className="text-sm font-semibold leading-6 text-gray-900">
             <UilSignout className='h-7 w-7' />
-          </a>
+          </button>
         </div>
       </nav>
     </header>

@@ -1,130 +1,93 @@
 import {
-    signInWithPopup,
-    GoogleAuthProvider,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    getAdditionalUserInfo,
-  } from "firebase/auth";
-import { auth, googleProvider } from "./config";
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  getAdditionalUserInfo,
+} from "firebase/auth";
+import {
+  query,
+  getDocs,
+  collection,
+  where,
+  setDoc,
+  doc,
+} from "firebase/firestore";
+import { auth, db, googleProvider } from "./config";
 import { createUser } from "./users";
-import { getUserProfile } from "./users"
 
 
 // HANDLE SING IN OR REGISTER USING GOOGLE PROVIDER
-export const signInWithGoogle = async ({ onSuccess, onFail }) => {
+export const signInWithGoogle = async ({ onSuccess }) => {
   try {
-    const result = await signInWithPopup(auth, googleProvider);
-    const { isNewUser } = getAdditionalUserInfo(result);
-
-    alert(isNewUser)
-
-    if (isNewUser) {
-      const { uid, email, displayName } = result.user;
-      await createUser({
-        uid,
-        email,
-        name: displayName,
+    const res = await signInWithPopup(auth, googleProvider);
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        name: user.displayName,
+        phoneNumber: user.phoneNumber,
+        authProvider: "google",
+        email: user.email,
       });
     }
 
     if (onSuccess) {
       onSuccess();
     }
-  } catch (error) {
-    const errorCode = error?.code;
-    const errorMessage = error?.message;
-    // The email of the user's account used.
-    const email = error?.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-
-    if (onFail) {
-      onFail();
-    }
-
-    console.error("FAILED SIGN IN WITH GOOGLE", {
-      errorCode,
-      errorMessage,
-      email,
-      credential,
-    });
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
   }
 };
 
 
 // HANDLE REGISTER WITH EMAIL AND PASSWORD
-export const registerWithEmailAndPassword = async ({
-  userData,
-  onSuccess,
-  onFail,
-}) => {
+export const registerWithEmailAndPassword = async ({ userData, onSuccess }) => {
   try {
-    const { email, password, ...restData } = userData;
-    const firebaseResult = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    const { firstName, secondName, email, password } = userData;
 
-    await createUser({
-      ...restData,
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+
+    await setDoc(doc(db, "users", user.uid), {
+      uid: user.uid,
+      name: `${firstName} ${secondName}`,
       email,
-      uid: firebaseResult.user.uid,
     });
 
-    // SUCCESS CALLBACK
     if (onSuccess) {
       onSuccess();
     }
   } catch (error) {
     console.error("REGISTER FAILED", { error });
-    if (onFail) {
-      onFail();
-    }
   }
 };
 
 
 // HANDLE LOGIN WITH EMAIL AND PASSWORD
-export const loginWithEmailAndPassword = async ({
-  userData,
-  onSuccess,
-  onFail,
-}) => {
+export const logInWithEmailAndPassword = async ({ userData, onSuccess }) => {
   try {
     const { email, password } = userData;
-    console.log(userData)
     await signInWithEmailAndPassword(auth, email, password);
 
     if (onSuccess) {
       onSuccess();
     }
-
-
-  } catch (error) {
-    console.error("LOGIN FAILED", { error });
-
-    // if (onFail) {
-    //     console.log(userData.email)
-    //     const check = await getUserProfile(userData.email)
-    //     if (check===null){
-    //         alert("Usuario no registrado")
-    //     }
-    //     onFail();
-    // }
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
   }
 };
 
 
 // HANDLE USER SIGN OUT
-export const logout = async (callback) => {
+export const logout = async () => {
   try {
     await signOut(auth);
-
-    if (callback) {
-      callback();
-    }
   } catch (error) {
     console.error("SIGN OUT FAILED", { error });
   }

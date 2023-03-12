@@ -1,10 +1,10 @@
 // import { constants } from "buffer";
-import { Outlet } from "react-router";
+import { useContext } from "react";
+import { Navigate, Outlet } from "react-router";
+import { UserContext } from "../context/UserContextProvider";
 
-// const useAuth = () => {
-
-// }
 export const ProtectedRoutes = () => {
-  const isAuth = useAuth();
-  return isAuth ? <Outlet></Outlet> : <RegisterPage />;
+  const { user, isLoadingUser } = useContext(UserContext);
+  const isAuth = user != null && !isLoadingUser;
+  return isAuth ? <Outlet></Outlet> : <Navigate to="/" />;
 };
