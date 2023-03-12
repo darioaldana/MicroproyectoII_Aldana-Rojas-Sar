@@ -7,22 +7,33 @@ import { useState } from "react";
 import GoogleLogo from "../../assets/google.png"
 import FacebookLogo from "../../assets/facebook.png"
 
-// import {loginWithEmailAndPassword, signInWithGoogle,} from "../../firebase/auth-service";
+import {loginWithEmailAndPassword, signInWithGoogle,} from "../../firebase/auth";
 import logo from '../../assets/logo.png'
 
 import { fetchMovies } from "../../api/api"
 
 
 export function LoginPage() {
-  // const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+    // const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+      email: "",
+      password: "",
+    });
 
-  const handleSignWithGoogle = async () => {
-    await signInWithGoogle();
-  };
+    const onSuccess = () => {
+      alert("Success.")
+    };
+  
+    const onFail = (_error) => {
+      alert("Failure.")
+    };
+
+    
+    const handleSignWithGoogle = async () => {
+      await signInWithGoogle(
+        {onSuccess: () => alert(Exitazo)}
+      );
+    };
 
   const handleOnChange = (event) => {
     const { name, value } = event.target;
@@ -234,8 +245,9 @@ export function LoginPage() {
 
         <div className="mt-10">
           <button
-            type="submit"
-            className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            type="button"
+            class = "block h-10 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl bg-red-400 hover:scale-105"
+            onClick={handleSignWithGoogle}
           >
             Login
           </button>
@@ -245,6 +257,7 @@ export function LoginPage() {
         <div className="flex items-center justify-center">
           <button
             type="button"
+            class = "block h-10 font-bold text-base leading-6 text-black cursor-pointer rounded-2xl bg-blue-400 hover:scale-105"
             onClick={handleSignWithGoogle}
             className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
             <img src={GoogleLogo} className='h-12' />
