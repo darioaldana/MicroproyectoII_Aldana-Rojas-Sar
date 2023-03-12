@@ -24,14 +24,6 @@ export function LoginPage() {
     await signInWithGoogle();
   };
 
-  const handleOnChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
   const onSubmit = async (event) => {
     try {
       event.preventDefault();
@@ -47,6 +39,38 @@ export function LoginPage() {
     }
   };
 
+<<<<<<<<< Temporary merge branch 1
+  return (
+    <div className={styles.wholePage}>
+      <div className={styles.container}>
+        <form className={styles.form} onSubmit={onSubmit}>
+          {/* <img src={logo} className={styles.logo}/>  */}
+          <h1 className={styles.title}>Welcome!</h1>
+          <p className={styles.welcomeTxt}>
+            Login we're glad to help you!
+=========
+    const handleOnChange = (event) => {
+      const { name, value } = event.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    };
+
+    const onSubmit = async (event) => {
+      try{
+        event.preventDefault();
+        const { email, password } = formData;
+        await loginWithEmailAndPassword(email, password);
+        console.log("Succesfull!");
+        alert("Successfull Login!!");
+        navigate("/profile");
+      }catch(error){
+        console.log(error);
+        console.log("Credentials not found!");
+        alert("Credentials not found, Sign UP!!");
+      }
+    };
 
     return (
       <div className="isolate bg-white py-24 px-6 sm:py-32 lg:px-8">
@@ -54,16 +78,17 @@ export function LoginPage() {
           <h1 class = "text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome!</h1>
           <p class = "mt-2 text-lg leading-8 text-gray-600">
             Login to a new way of enjoying cinema
+>>>>>>>>> Temporary merge branch 2
           </p>
       </div>
 
-      <form class ="mx-auto mt-16 max-w-xl sm:mt-20" onSubmit={onSubmit}>
-        
+      <form class="mx-auto mt-16 max-w-xl sm:mt-20" onSubmit={onSubmit}>
+
         <div className="grid grid-cols-1 gap-y-6 gap-x-8 sm:grid-cols-2">
 
           <div className="sm:col-span-2">
             <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
-            Email
+              Email
             </label>
             <div className="mt-2.5">
               <input
@@ -84,12 +109,12 @@ export function LoginPage() {
             </label>
             <div className="mt-2.5">
               <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  onChange={handleOnChange}
-                  className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  required
+                type="password"
+                name="password"
+                id="password"
+                onChange={handleOnChange}
+                className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                required
               />
             </div>
           </div>
@@ -106,9 +131,9 @@ export function LoginPage() {
 
 
         <div className="flex items-center justify-center">
-          <button 
-            type = "button"
-            onClick = {handleSignWithGoogle}
+          <button
+            type="button"
+            onClick={handleSignWithGoogle}
             className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
             <img src={GoogleLogo} className='h-12' />
             <div className="items-center justify-center">
@@ -119,7 +144,7 @@ export function LoginPage() {
           <button className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
             <img src={FacebookLogo} className='h-12 p-1' />
             <div className="items-center justify-center">
-              
+
               <h3 className="block font-semibold text-gray-900">Facebook</h3>
             </div>
           </button>
@@ -127,12 +152,13 @@ export function LoginPage() {
 
         </div>
 
-      
-      </form>      
-        
+
+      </form>
+
 
         
       </div>
     );
+>>>>>>>>> Temporary merge branch 2
 }
 
