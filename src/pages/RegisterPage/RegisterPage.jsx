@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
     registerWithEmailAndPassword,
     signInWithGoogle,
+    signInWithFacebook
 } from "../../firebase/auth"
 import { HomePageUrl, LoginPageUrl } from "../../constants/url";
 
@@ -32,6 +33,10 @@ export function RegisterPage() {
             ...oldData,
             [event.target.name]: event.target.value,
         }));
+    };
+
+    const handleSignWithFacebook = async () => {
+        await signInWithFacebook({onSuccess: onSuccess});
     };
 
 
@@ -138,7 +143,8 @@ export function RegisterPage() {
                     <button
                         type="button"
                         className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105"
-                        onClick={handleGoogleClick}>
+                        onClick = {handleSignWithFacebook} >
+
                         <img src={FacebookLogo} className='h-12 p-1' />
                         <div className="items-center justify-center">
 

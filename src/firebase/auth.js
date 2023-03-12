@@ -14,8 +14,8 @@ import {
   setDoc,
   doc,
 } from "firebase/firestore";
-import { auth, db, googleProvider } from "./config";
-import { createUser } from "./users";
+import { auth, db, googleProvider, facebookProvider } from "./config";
+
 
 
 // HANDLE SING IN OR REGISTER USING GOOGLE PROVIDER
@@ -41,6 +41,31 @@ export const signInWithGoogle = async ({ onSuccess }) => {
   } catch (err) {
     console.error(err);
     alert(err.message);
+  }
+};
+
+export const signInWithFacebook = async ({ onSuccess }) => {
+  try {
+
+    const res = await signInWithPopup(auth, facebookProvider);
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        name: user.displayName,
+        email: user.email,
+      });
+    }
+
+    if (onSuccess) {
+      onSuccess();
+    }
+
+  } catch (error) {
+    alert("Error")
+    console.error(error);
   }
 };
 

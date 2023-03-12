@@ -7,7 +7,7 @@ import { useState } from "react";
 import GoogleLogo from "../../assets/google.png"
 import FacebookLogo from "../../assets/facebook.png"
 
-import { logInWithEmailAndPassword, signInWithGoogle, } from "../../firebase/auth";
+import { logInWithEmailAndPassword, signInWithGoogle, signInWithFacebook} from "../../firebase/auth";
 
 
 export function LoginPage() {
@@ -25,6 +25,11 @@ export function LoginPage() {
   const handleGoogleClick = async () => {
     await signInWithGoogle({ onSuccess: onSuccess });
   };
+
+  const handleSignWithFacebook = async () => {
+    await signInWithFacebook({ onSuccess: onSuccess })
+    // navigate(HomePageUrl)
+  }
 
   const onChange = (event) => {
     setData((oldData) => ({
@@ -102,7 +107,10 @@ export function LoginPage() {
             </div>
           </button>
 
-          <button className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
+          <button 
+          type="button"
+          onClick = {handleSignWithFacebook}
+          className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
             <img src={FacebookLogo} className='h-12 p-1' />
             <div className="items-center justify-center">
 
