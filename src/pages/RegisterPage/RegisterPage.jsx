@@ -12,38 +12,15 @@ export function RegisterPage() {
 
     return (
         <div className="isolate bg-white py-24 px-6 sm:py-32 lg:px-8">
-            {/* <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
-                <svg
-                    className="relative left-1/2 -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-40rem)] sm:h-[42.375rem]"
-                    viewBox="0 0 1155 678"
-                >
-                    <path
-                        fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
-                        fillOpacity=".3"
-                        d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
-                    />
-                    <defs>
-                        <linearGradient
-                            id="45de2b6b-92d5-4d68-a6a0-9b9b2abad533"
-                            x1="1155.49"
-                            x2="-78.208"
-                            y1=".177"
-                            y2="474.645"
-                            gradientUnits="userSpaceOnUse"
-                        >
-                            <stop stopColor="#9089FC" />
-                            <stop offset={1} stopColor="#FF80B5" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div> */}
+
             <div className="mx-auto max-w-2xl text-center">
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Register</h2>
                 <p className="mt-2 text-lg leading-8 text-gray-600">
                     Enter your data to access the application
                 </p>
             </div>
-            <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+
+            <form className="mx-auto mt-16 max-w-xl sm:mt-20">
                 <div className="grid grid-cols-1 gap-y-6 gap-x-8 sm:grid-cols-2">
                     <div>
                         <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
@@ -102,35 +79,8 @@ export function RegisterPage() {
                             />
                         </div>
                     </div>
-                    {/* <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2">
-                        <div className="flex h-6 items-center">
-                            <Switch
-                                checked={agreed}
-                                onChange={setAgreed}
-                                className={classNames(
-                                    agreed ? 'bg-indigo-600' : 'bg-gray-200',
-                                    'flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                                )}
-                            >
-                                <span className="sr-only">Agree to policies</span>
-                                <span
-                                    aria-hidden="true"
-                                    className={classNames(
-                                        agreed ? 'translate-x-3.5' : 'translate-x-0',
-                                        'h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out'
-                                    )}
-                                />
-                            </Switch>
-                        </div>
-                        <Switch.Label className="text-sm leading-6 text-gray-600">
-                            By selecting this, you agree to our{' '}
-                            <a href="#" className="font-semibold text-indigo-600">
-                                privacy&nbsp;policy
-                            </a>
-                            .
-                        </Switch.Label>
-                    </Switch.Group> */}
                 </div>
+                
                 <div className="mt-10">
                     <button
                         type="submit"
@@ -139,33 +89,27 @@ export function RegisterPage() {
                         Register Account
                     </button>
                 </div>
+
                 <div className="flex items-center justify-center">
-                    <div
-                        className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 "
-                    >
+                    <button 
+                        type = "button"
+                        className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
                         <img src={GoogleLogo} className='h-12' />
-                        <div className="items-center justify-center ">
-                            <a href="" className="block font-semibold text-gray-900">
-                                Google
-                                <span className="absolute inset-0" />
-                            </a>
-
-                        </div>
-                    </div>
-                    <div
-                        className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 "
-                    >
-                        <img src={FacebookLogo} className='h-12 p-1' />
                         <div className="items-center justify-center">
-                            <a href="" className="block font-semibold text-gray-900">
-                                Facebook
-                                <span className="absolute inset-0" />
-                            </a>
+                        <h3 className="block font-semibold text-gray-900">Google</h3>
+                      </div>
+                    </button>
 
-                        </div>
+                    <button 
+                        type = "button"
+                        className="flex flex-col items-center justify-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:scale-105">
+                    <img src={FacebookLogo} className='h-12 p-1' />
+                    <div className="items-center justify-center">
+              
+                        <h3 className="block font-semibold text-gray-900">Facebook</h3>
                     </div>
+                    </button>
                 </div>
-
             </form>
         </div>
     )
