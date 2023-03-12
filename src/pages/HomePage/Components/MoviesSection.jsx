@@ -1,50 +1,64 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { fetchMovies, base_url, fetchMoviesByName } from "../../../api/api";
+import { base_url } from "../../../api/api";
+import { MoviesContext } from "../context/MoviesContextProvider";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export function MoviesSection() {
-  const [movies, setMovies] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const {
+    movies,
+    isAll,
+    getAllMovies,
+    isSoonToBeReleased,
+    getSoonToBeReleasedMovies,
+    isSearch,
+    getSearchMovies,
+    currentPage,
+    isLoading,
+  } = useContext(MoviesContext);
 
-  const getMovies = async (page) => {
-    const { data } = await fetchMovies(page);
-    console.log(data);
-    setMovies(data.results);
-    setTotalPages(data.total_pages);
+  const handlePageSubmit = (page) => {
+    if (isAll)
+      getAllMovies(page);
+    if (isSoonToBeReleased)
+      getSoonToBeReleasedMovies(page)
+    if (isSearch)
+      getSearchMovies(page)
   };
 
-  //   const getMovies = async (page) => {
-  //     const { data } = await fetchMoviesByName("asdkjadsjadsijk", page);
-  //     console.log(data);
-  //     setMovies(data.results);
-  //     setTotalPages(data.total_pages);
-  //   };
+  const handleChangeFetch = (isAll) => {
+    if (isAll) {
+      return getAllMovies();
+    }
+    getSoonToBeReleasedMovies();
+  }
 
-  //   if (movies.length === 0) {
-  //     return <h1 className="bg-white text-black py-20">Not found</h1>;
-  //   }
-  const updateMovies = (newPage) => {
-    if (newPage < 1 || newPage > totalPages) return;
-    getMovies(newPage);
-    setCurrentPage(newPage);
-  };
-
-  useEffect(() => {
-    getMovies(currentPage);
-  }, []);
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl pt-6 pb-16 px-4 sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div className="flex flex-col justify-between md:flex-row md:text-center">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Soon to be released
-          </h2>
+        <div className="flex flex-col justify-between md:flex-row">
+
+          <div className="flex space-x-6">
+            <button onClick={() => handleChangeFetch(true)}>
+              <h2 className={`text-2xl font-bold tracking-tight ${isAll ? 'text-gray-900' : 'text-gray-400'} `}>
+                All
+              </h2>
+            </button>
+
+            <button onClick={() => handleChangeFetch(false)}>
+              <h2 className={`text-2xl font-bold tracking-tight ${isSoonToBeReleased ? 'text-gray-900' : 'text-gray-400'} `}>
+                Soon to be released
+              </h2>
+            </button>
+          </div>
+
 
           {/* Pagination */}
           <div className="mt-3 md:mt-0">
@@ -53,25 +67,24 @@ export function MoviesSection() {
               aria-label="Pagination"
             >
               <button
-                onClick={() => updateMovies(currentPage - 1)}
+                onClick={() => handlePageSubmit(currentPage - 1)}
                 className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               >
                 {/* Previous */}
                 <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
               </button>
               {[
-                currentPage > totalPages ? currentPage - 1 : currentPage,
-                currentPage > totalPages ? currentPage - 2 : currentPage + 1,
-                currentPage > totalPages ? currentPage - 3 : currentPage + 2,
+                currentPage == 1 ? currentPage : currentPage - 1,
+                currentPage == 1 ? currentPage + 1 : currentPage,
+                currentPage == 1 ? currentPage + 2 : currentPage + 1,
               ].map((page) => (
                 <button
                   key={page}
-                  onClick={() => updateMovies(page)}
+                  onClick={() => handlePageSubmit(page)}
                   className={classNames(
                     page === currentPage
                       ? "relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       : "relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0",
-                    ""
                   )}
                   aria-hidden="true"
                 >
@@ -80,7 +93,7 @@ export function MoviesSection() {
               ))}
               {/* Next */}
               <button
-                onClick={() => updateMovies(currentPage + 1)}
+                onClick={() => handlePageSubmit(currentPage + 1)}
                 className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               >
                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
