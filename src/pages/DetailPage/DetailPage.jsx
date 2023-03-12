@@ -10,12 +10,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function DetailPage() {
+export function DetailPage(id = 1077280) {
   const [movie, setMovie] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   const getMovie = async () => {
-    const { data } = await fetchMovie(1077280);
+    const { data } = await fetchMovie(id);
     console.log(data);
     setMovie(data);
     setIsLoading(false);
