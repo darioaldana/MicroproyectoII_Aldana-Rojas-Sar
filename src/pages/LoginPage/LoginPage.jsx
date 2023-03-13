@@ -121,7 +121,7 @@ export function LoginPage() {
 
         <div className='flex flex-col items-center justify-center'>
           <Link to={RegisterPageUrl} className="block font-semibold text-sm text-gray-900 hover:scale-105 center" >
-            Don't have an account yet?{" "}
+            Don't have an account yet?{"   "}
             <span>Sign Up!</span>
           </Link>
         </div>
